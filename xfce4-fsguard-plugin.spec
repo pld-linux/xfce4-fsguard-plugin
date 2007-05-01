@@ -10,7 +10,7 @@ Source0:	http://goodies.xfce.org/releases/xfce4-fsguard-plugin/%{name}-%{version
 URL:		http://goodies.xfce.org/projects/panel-plugins/xfce4-fsguard-plugin
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	intltool >= 0.35.5
+BuildRequires:	intltool >= 0.35.0
 BuildRequires:	xfce4-dev-tools >= 4.4.0
 BuildRequires:	xfce4-panel-devel >= 4.4.0
 Requires:	xfce4-panel >= 4.4.0
@@ -22,8 +22,8 @@ frequently and displays an alarm if free space is less than given
 alarm limit.
 
 %description -l pl.UTF-8
-Wtyczka fsguard sprawdza czÄ™sto wolne miejsce na wybranym punkcie
-montowania i wyÅ›wietla alarm jeÅ›li jest mniej miejsca niÅ¼ zadany
+Wtyczka fsguard sprawdza czêsto wolne miejsce na wybranym punkcie
+montowania i wy¶wietla alarm je¶li jest mniej miejsca ni¿ zadany
 limit.
 
 %prep
