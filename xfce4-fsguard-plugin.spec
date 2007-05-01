@@ -1,5 +1,5 @@
 Summary:	A fsguard plugin for the Xfce panel
-Summary(pl.UTF-8):	Wtyczka fsguard dla panelu Xfce
+Summary(pl):	Wtyczka fsguard dla panelu Xfce
 Name:		xfce4-fsguard-plugin
 Version:	0.3.0
 Release:	1
@@ -21,7 +21,7 @@ The fsguard plugin checks free space on a chosen mount point
 frequently and displays an alarm if free space is less than given
 alarm limit.
 
-%description -l pl.UTF-8
+%description -l pl
 Wtyczka fsguard sprawdza czêsto wolne miejsce na wybranym punkcie
 montowania i wy¶wietla alarm je¶li jest mniej miejsca ni¿ zadany
 limit.
