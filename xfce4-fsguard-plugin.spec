@@ -1,17 +1,17 @@
 Summary:	A fsguard plugin for the Xfce panel
 Summary(pl.UTF-8):	Wtyczka fsguard dla panelu Xfce
 Name:		xfce4-fsguard-plugin
-Version:	0.4.0
+Version:	0.4.2
 Release:	1
 License:	BSD
 Group:		X11/Applications
 Source0:	http://goodies.xfce.org/releases/xfce4-fsguard-plugin/%{name}-%{version}.tar.bz2
-# Source0-md5:	2d481555102f1f09d97ae05ab2a44d0b
-Patch0:		%{name}-locale-names.patch
+# Source0-md5:	50e9d133fd8af1bf5acc3059872eb924
 URL:		http://goodies.xfce.org/projects/panel-plugins/xfce4-fsguard-plugin
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	intltool >= 0.35.5
+BuildRequires:	libxfcegui4-devel >= 4.4.0
 BuildRequires:	rpmbuild(macros) >= 1.311
 BuildRequires:	xfce4-dev-tools >= 4.4.0
 BuildRequires:	xfce4-panel-devel >= 4.4.0
@@ -32,10 +32,6 @@ limit.
 
 %prep
 %setup -q
-%patch0 -p1
-
-mv -f po/{nb_NO,nb}.po
-mv -f po/{pt_PT,pt}.po
 
 %build
 %{__intltoolize}
@@ -51,6 +47,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+mv $RPM_BUILD_ROOT%{_datadir}/locale/nb{_NO,}
+mv $RPM_BUILD_ROOT%{_datadir}/locale/pt{_PT,}
 
 %find_lang %{name}
 
