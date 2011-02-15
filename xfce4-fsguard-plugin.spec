@@ -1,22 +1,22 @@
 Summary:	A fsguard plugin for the Xfce panel
 Summary(pl.UTF-8):	Wtyczka fsguard dla panelu Xfce
 Name:		xfce4-fsguard-plugin
-Version:	0.4.2
-Release:	2
+Version:	1.0.0
+Release:	1
 License:	BSD
 Group:		X11/Applications
-Source0:	http://goodies.xfce.org/releases/xfce4-fsguard-plugin/%{name}-%{version}.tar.bz2
-# Source0-md5:	50e9d133fd8af1bf5acc3059872eb924
+Source0:	http://archive.xfce.org/src/panel-plugins/xfce4-fsguard-plugin/1.0/%{name}-%{version}.tar.bz2
+# Source0-md5:	8378f922b59a0d5a378af5e45a18c4a3
 URL:		http://goodies.xfce.org/projects/panel-plugins/xfce4-fsguard-plugin
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	intltool >= 0.35.5
 BuildRequires:	libxfcegui4-devel >= 4.4.0
-BuildRequires:	rpmbuild(macros) >= 1.311
+BuildRequires:	rpmbuild(macros) >= 1.601
 BuildRequires:	xfce4-dev-tools >= 4.4.0
 BuildRequires:	xfce4-panel-devel >= 4.4.0
-Requires(post,postun):	gtk-update-icon-cache
-Requires(post,postun):	hicolor-icon-theme
+Requires:	gtk-update-icon-cache
+Requires:	hicolor-icon-theme
 Requires:	xfce4-panel >= 4.4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -48,8 +48,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-mv $RPM_BUILD_ROOT%{_datadir}/locale/nb{_NO,}
-mv $RPM_BUILD_ROOT%{_datadir}/locale/pt{_PT,}
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/ur_PK
 
 %find_lang %{name}
 
