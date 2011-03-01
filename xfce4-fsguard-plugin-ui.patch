@@ -1,0 +1,87 @@
+diff -ur xfce4-fsguard-plugin-1.0.0-orig/configure.ac xfce4-fsguard-plugin-1.0.0/configure.ac
+--- xfce4-fsguard-plugin-1.0.0-orig/configure.ac	2010-12-15 14:21:36.000000000 +0100
++++ xfce4-fsguard-plugin-1.0.0/configure.ac	2011-03-01 12:55:57.995889237 +0100
+@@ -49,7 +49,7 @@
+ 
+ dnl configure the panel plugin
+ XDT_CHECK_PACKAGE([GTK], [gtk+-2.0], [2.6.0])
+-XDT_CHECK_PACKAGE([LIBXFCEGUI4], [libxfcegui4-1.0], [4.4.0])
++XDT_CHECK_PACKAGE([LIBXFCE4UI], [libxfce4ui-1], [4.8.0])
+ XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.4.0])
+ XDT_CHECK_PACKAGE([LIBXFCE4PANEL], [libxfce4panel-1.0], [4.4.0])
+ 
+diff -ur xfce4-fsguard-plugin-1.0.0-orig/panel-plugin/fsguard.c xfce4-fsguard-plugin-1.0.0/panel-plugin/fsguard.c
+--- xfce4-fsguard-plugin-1.0.0-orig/panel-plugin/fsguard.c	2010-12-14 16:32:01.000000000 +0100
++++ xfce4-fsguard-plugin-1.0.0/panel-plugin/fsguard.c	2011-03-01 12:57:33.323889238 +0100
+@@ -47,10 +47,8 @@
+ 
+ #include <gtk/gtk.h>
+ #include <libxfce4util/libxfce4util.h>
+-#include <libxfcegui4/libxfcegui4.h>
+-#include <libxfce4panel/xfce-panel-plugin.h>
+-#include <libxfce4panel/xfce-panel-convenience.h>
+-#include <libxfce4panel/xfce-hvbox.h>
++#include <libxfce4ui/libxfce4ui.h>
++#include <libxfce4panel/libxfce4panel.h>
+ 
+ #define ICON_NORMAL             0
+ #define ICON_WARNING            1
+@@ -218,7 +216,7 @@
+     gchar *path_quoted;
+     path_quoted = g_shell_quote (path);
+     cmd = g_strdup_printf ("%s %s", command, path_quoted);
+-    res = xfce_exec (cmd, FALSE, FALSE, NULL);
++    res = xfce_spawn_command_line_on_screen(gdk_screen_get_default(), cmd, FALSE, FALSE, NULL);
+     g_free (path_quoted);
+     g_free (cmd);
+     return res;
+@@ -308,10 +306,10 @@
+     if (err != -1 && !fsguard->seen && icon_id == ICON_URGENT) {
+         fsguard->seen = TRUE;
+         if (*(fsguard->name) != '\0' && strcmp(fsguard->path, fsguard->name)) {
+-            xfce_warn (_("Only %s space left on %s (%s)!"),
++            xfce_dialog_show_warning(NULL, NULL, _("Only %s space left on %s (%s)!"),
+                        msg_size, fsguard->path, fsguard->name);
+         } else {
+-            xfce_warn (_("Only %s space left on %s!"),
++            xfce_dialog_show_warning(NULL, NULL, _("Only %s space left on %s!"),
+                        msg_size, fsguard->path);
+         }
+     }
+@@ -580,7 +578,7 @@
+ 
+     /* Configuration frame */
+     GtkWidget *table1 = gtk_table_new (2, 3, FALSE);
+-    GtkWidget *frame1 = xfce_create_framebox_with_content (_("Configuration"), table1);
++    GtkWidget *frame1 = xfce_gtk_frame_box_new_with_content (_("Configuration"), table1);
+     gtk_table_set_row_spacings (GTK_TABLE (table1), BORDER);
+     gtk_table_set_col_spacings (GTK_TABLE (table1), BORDER);
+     gtk_container_set_border_width (GTK_CONTAINER (frame1), BORDER);
+@@ -618,7 +616,7 @@
+ 
+     /* Display frame */
+     GtkWidget *table2 = gtk_table_new (2, 4, FALSE);
+-    GtkWidget *frame2 = xfce_create_framebox_with_content (_("User Interface"), table2);
++    GtkWidget *frame2 = xfce_gtk_frame_box_new_with_content (_("User Interface"), table2);
+     gtk_table_set_row_spacings (GTK_TABLE (table2), BORDER);
+     gtk_table_set_col_spacings (GTK_TABLE (table2), BORDER);
+     gtk_container_set_border_width (GTK_CONTAINER (frame2), BORDER);
+diff -ur xfce4-fsguard-plugin-1.0.0-orig/panel-plugin/Makefile.am xfce4-fsguard-plugin-1.0.0/panel-plugin/Makefile.am
+--- xfce4-fsguard-plugin-1.0.0-orig/panel-plugin/Makefile.am	2010-12-12 03:46:39.000000000 +0100
++++ xfce4-fsguard-plugin-1.0.0/panel-plugin/Makefile.am	2011-03-01 12:55:57.999889237 +0100
+@@ -6,13 +6,13 @@
+ 
+ xfce4_fsguard_plugin_CFLAGS =									\
+ 	-I$(top_srcdir)												\
+-	@LIBXFCEGUI4_CFLAGS@										\
++	@LIBXFCE4UI_CFLAGS@										\
+ 	@LIBXFCE4UTIL_CFLAGS@										\
+ 	@LIBXFCE4PANEL_CFLAGS@										\
+ 	-DPACKAGE_LOCALE_DIR=\"$(localedir)\"
+ 
+ xfce4_fsguard_plugin_LDADD =									\
+-	@LIBXFCEGUI4_LIBS@											\
++	@LIBXFCE4UI_LIBS@											\
+ 	@LIBXFCE4UTIL_LIBS@											\
+ 	@LIBXFCE4PANEL_LIBS@
+ 
