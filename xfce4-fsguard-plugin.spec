@@ -2,7 +2,7 @@ Summary:	A fsguard plugin for the Xfce panel
 Summary(pl.UTF-8):	Wtyczka fsguard dla panelu Xfce
 Name:		xfce4-fsguard-plugin
 Version:	1.0.0
-Release:	2
+Release:	3
 License:	BSD
 Group:		X11/Applications
 Source0:	http://archive.xfce.org/src/panel-plugins/xfce4-fsguard-plugin/1.0/%{name}-%{version}.tar.bz2
