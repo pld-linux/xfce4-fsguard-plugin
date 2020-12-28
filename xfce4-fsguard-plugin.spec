@@ -1,12 +1,12 @@
 Summary:	A fsguard plugin for the Xfce panel
 Summary(pl.UTF-8):	Wtyczka fsguard dla panelu Xfce
 Name:		xfce4-fsguard-plugin
-Version:	1.1.1
+Version:	1.1.2
 Release:	1
 License:	BSD
 Group:		X11/Applications
 Source0:	http://archive.xfce.org/src/panel-plugins/xfce4-fsguard-plugin/1.1/%{name}-%{version}.tar.bz2
-# Source0-md5:	d1e1fda4e80c36741643b1d9eca5c5c1
+# Source0-md5:	d491b5674013bb5a3c7c3e6ee0141e56
 URL:		http://goodies.xfce.org/projects/panel-plugins/xfce4-fsguard-plugin
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -43,9 +43,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/ur_PK
-%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/ie
-
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{hye,ie,ur_PK}
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/xfce4/panel/plugins/libfsguard.la
 %find_lang %{name}
 
 %clean
@@ -59,7 +58,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS COPYING ChangeLog NEWS README
+%doc AUTHORS COPYING ChangeLog NEWS
 %attr(755,root,root) %{_libdir}/xfce4/panel/plugins/libfsguard.so
 %{_datadir}/xfce4/panel/plugins/fsguard.desktop
 %{_iconsdir}/hicolor/*/*/*.png
